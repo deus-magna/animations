@@ -11,6 +11,12 @@ class HomeView extends StatelessWidget {
             title: Text('Animated Triangle'),
             trailing: Icon(Icons.arrow_forward_ios_rounded),
             onTap: () => Navigator.of(context).pushNamed('/triangle'),
+          ),
+          ListTile(
+            leading: Icon(Icons.waves),
+            title: Text('Waves'),
+            trailing: Icon(Icons.arrow_forward_ios_rounded),
+            onTap: () => Navigator.of(context).pushNamed('/waves'),
           )
         ],
       ),

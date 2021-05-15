@@ -38,6 +38,12 @@ class _AnimatedTriangleViewState extends State<AnimatedTriangleView>
   }
 
   @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     // print('Animation: ${animation.value}');
