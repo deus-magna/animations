@@ -17,9 +17,15 @@ class HomeView extends StatelessWidget {
           ),
           ListTile(
             leading: Icon(Icons.waves),
-            title: Text('Waves'),
+            title: Text('Circular Waves'),
             trailing: Icon(Icons.arrow_forward_ios_rounded),
             onTap: () => Navigator.of(context).pushNamed('/waves'),
+          ),
+          ListTile(
+            leading: Icon(Icons.waves),
+            title: Text('Multiple Waves'),
+            trailing: Icon(Icons.arrow_forward_ios_rounded),
+            onTap: () => Navigator.of(context).pushNamed('/multi_waves'),
           )
         ],
       ),
