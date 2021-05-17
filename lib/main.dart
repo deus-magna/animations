@@ -6,6 +6,7 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    //abstract shapes animations
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Material App',
