@@ -98,7 +98,7 @@ class WavesPainter extends CustomPainter {
     Offset rightCenter = Offset(size.width, size.height / 2);
     final maxRad = maxRadius(size.width / 2, size.height / 2);
 
-    for (int i = 0; currentRadius < maxRad; currentRadius += gap) {
+    for (var i = 0; currentRadius < maxRad; currentRadius += gap) {
       canvas.drawCircle(topCenter, currentRadius, backPaint);
       canvas.drawCircle(bottomCenter, currentRadius, greenPaint);
       canvas.drawCircle(leftCenter, currentRadius, orangePaint);

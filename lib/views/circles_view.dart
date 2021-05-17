@@ -16,11 +16,11 @@ class _CirclesViewState extends State<CirclesView>
   void initState() {
     super.initState();
     controller =
-        AnimationController(duration: Duration(seconds: 5), vsync: this);
+        AnimationController(duration: Duration(seconds: 10), vsync: this);
 
     controller.forward();
 
-    animation = Tween(begin: 0.0, end: 900.0).animate(controller)
+    animation = Tween(begin: 0.0, end: 2000.0).animate(controller)
       ..addListener(() {
         setState(() {
           waveRadius = animation.value;
@@ -58,23 +58,33 @@ class _CirclesViewState extends State<CirclesView>
 }
 
 class CirclesPainter extends CustomPainter {
-  final double radius;
+  final double difY;
 
-  CirclesPainter(this.radius);
+  CirclesPainter(this.difY);
 
   @override
   void paint(Canvas canvas, Size size) {
-    final paint = Paint()
-      ..color = Colors.orange.withOpacity(0.5)
-      ..strokeWidth = 2
-      ..style = PaintingStyle.fill
-      ..strokeCap = StrokeCap.round;
+    // final List<Offset> offsets = [
+    //   Offset(size.width / 2, difY - 10),
+    //   Offset(size.width / 4, (difY * 2) - 10),
+    //   Offset(size.width / 1.5, difY - 70),
+    // ];
 
-    Offset center = Offset(size.width / 2, radius - 10);
-    Offset center2 = Offset(size.width / 4, (radius * 2) - 10);
+    // for (var offset in offsets) {
+    //   canvas.drawCircle(offset, 100, fillPaint);
+    // }
 
-    canvas.drawCircle(center, 100, paint);
-    canvas.drawCircle(center2, 50, paint);
+    final fallingCircles = mockFallingCircles(size, difY);
+
+    for (var circle in fallingCircles) {
+      final paint = Paint()
+        ..color = circle.color.withOpacity(circle.opacity)
+        ..strokeWidth = 8
+        ..style = circle.shape == 0 ? PaintingStyle.fill : PaintingStyle.stroke
+        ..strokeCap = StrokeCap.round;
+
+      canvas.drawCircle(circle.offset, circle.radius, paint);
+    }
   }
 
   @override
@@ -82,4 +92,46 @@ class CirclesPainter extends CustomPainter {
 
   @override
   bool shouldRebuildSemantics(CirclesPainter oldDelegate) => true;
+}
+
+class FallingCircle {
+  final Offset offset;
+  final double radius;
+  final int shape;
+  final Color color;
+  final double opacity;
+
+  FallingCircle(this.offset, this.radius, this.shape,
+      {this.color = Colors.orange, this.opacity = 0.5});
+}
+
+List<FallingCircle> mockFallingCircles(Size size, double difY) {
+  final backCircles = [
+    FallingCircle(Offset(size.width - 50, difY / 1.5 - 350), 50, 0,
+        opacity: 0.2),
+    FallingCircle(Offset(size.width / 2, difY / 2 - 120), 30, 0, opacity: 0.2),
+    FallingCircle(Offset(size.width - 50, difY / 2 - 20), 20, 0, opacity: 0.2),
+    FallingCircle(Offset(100, difY / 2 - 200), 50, 1, opacity: 0.2),
+    FallingCircle(Offset(100, difY / 2 - 200), 25, 0, opacity: 0.2),
+    FallingCircle(Offset(20, difY / 2 - 40), 40, 0, opacity: 0.2),
+    FallingCircle(Offset(170, difY / 2.1 - 40), 40, 0, opacity: 0.2),
+    FallingCircle(Offset(320, difY - 80), 80, 1, opacity: 0.2),
+    FallingCircle(Offset(320, difY - 80), 40, 0, opacity: 0.2),
+  ];
+  final frontCircles = [
+    FallingCircle(Offset(size.width - 50, difY * 1.1 - 250), 100, 0),
+    FallingCircle(Offset(size.width - 50, difY * 1.1 - 250), 50, 0),
+    FallingCircle(Offset(size.width, difY * 1.5 - 150), 80, 0),
+    FallingCircle(Offset(size.width, difY * 1.5 - 150), 40, 0),
+    FallingCircle(Offset(200, difY - 400), 100, 1),
+    FallingCircle(Offset(200, difY - 400), 50, 0),
+    FallingCircle(Offset(0, difY * 1.1 - 200), 50, 0),
+    FallingCircle(Offset(size.width / 3, difY - 60), 50, 1),
+    FallingCircle(Offset(size.width / 3, difY - 60), 25, 0),
+    FallingCircle(Offset(90, difY * 0.9 - 180), 80, 0),
+    FallingCircle(Offset(90, difY * 0.9 - 180), 40, 0),
+  ];
+
+  frontCircles.addAll(backCircles);
+  return frontCircles;
 }
