@@ -62,28 +62,20 @@ class CirclesPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final fallingCircles = mockFallingCircles(size, animation.value);
-
-    for (var circle in fallingCircles) {
-      final paint = Paint()
-        ..color = circle.color.withOpacity(circle.opacity)
-        ..strokeWidth = 8
-        ..style = circle.shape == 0 ? PaintingStyle.fill : PaintingStyle.stroke
-        ..strokeCap = StrokeCap.round;
-
-      canvas.drawCircle(circle.offset, circle.radius, paint);
-    }
-    print('IsFirst value: $isFirst');
+    buildCircles(canvas, size, animation.value);
     if (isFirst) {
       if (animation.value >= 600) {
         isFirst = false;
       }
       return;
     }
+    buildCircles(canvas, size, (animation.value + 600) % 1200);
+  }
 
-    final fallingCircles2 =
-        mockFallingCircles(size, (animation.value + 600) % 1200);
-    for (var circle in fallingCircles2) {
+  void buildCircles(Canvas canvas, Size size, double difY) {
+    final fallingCircles = mockFallingCircles(size, difY);
+
+    for (var circle in fallingCircles) {
       final paint = Paint()
         ..color = circle.color.withOpacity(circle.opacity)
         ..strokeWidth = 8
