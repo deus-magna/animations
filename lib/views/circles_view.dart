@@ -7,8 +7,6 @@ class CirclesView extends StatefulWidget {
 
 class _CirclesViewState extends State<CirclesView>
     with SingleTickerProviderStateMixin {
-  double waveRadius = 0.0;
-
   AnimationController controller;
   Animation<double> animation;
 
@@ -20,12 +18,10 @@ class _CirclesViewState extends State<CirclesView>
 
     controller.forward();
 
-    animation = Tween(begin: 0.0, end: 2000.0).animate(controller)
-      ..addListener(() {
-        setState(() {
-          waveRadius = animation.value;
-        });
-      });
+    animation = Tween(begin: 0.0, end: 1200.0).animate(controller);
+    // ..addListener(() {
+    //   setState(() {});
+    // });
 
     controller.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
@@ -45,9 +41,10 @@ class _CirclesViewState extends State<CirclesView>
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+
     return Scaffold(
       body: CustomPaint(
-        painter: CirclesPainter(waveRadius),
+        painter: CirclesPainter(animation),
         child: Container(
           width: size.width,
           height: size.height,
@@ -58,25 +55,35 @@ class _CirclesViewState extends State<CirclesView>
 }
 
 class CirclesPainter extends CustomPainter {
-  final double difY;
+  final Animation<double> animation;
+  bool isFirst = true;
 
-  CirclesPainter(this.difY);
+  CirclesPainter(this.animation) : super(repaint: animation);
 
   @override
   void paint(Canvas canvas, Size size) {
-    // final List<Offset> offsets = [
-    //   Offset(size.width / 2, difY - 10),
-    //   Offset(size.width / 4, (difY * 2) - 10),
-    //   Offset(size.width / 1.5, difY - 70),
-    // ];
-
-    // for (var offset in offsets) {
-    //   canvas.drawCircle(offset, 100, fillPaint);
-    // }
-
-    final fallingCircles = mockFallingCircles(size, difY);
+    final fallingCircles = mockFallingCircles(size, animation.value);
 
     for (var circle in fallingCircles) {
+      final paint = Paint()
+        ..color = circle.color.withOpacity(circle.opacity)
+        ..strokeWidth = 8
+        ..style = circle.shape == 0 ? PaintingStyle.fill : PaintingStyle.stroke
+        ..strokeCap = StrokeCap.round;
+
+      canvas.drawCircle(circle.offset, circle.radius, paint);
+    }
+    print('IsFirst value: $isFirst');
+    if (isFirst) {
+      if (animation.value >= 600) {
+        isFirst = false;
+      }
+      return;
+    }
+
+    final fallingCircles2 =
+        mockFallingCircles(size, (animation.value + 600) % 1200);
+    for (var circle in fallingCircles2) {
       final paint = Paint()
         ..color = circle.color.withOpacity(circle.opacity)
         ..strokeWidth = 8
