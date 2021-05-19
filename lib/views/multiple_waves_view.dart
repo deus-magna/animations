@@ -8,7 +8,6 @@ class MultipleWavesView extends StatefulWidget {
 
 class _MultipleWavesViewState extends State<MultipleWavesView>
     with SingleTickerProviderStateMixin {
-  double waveRadius = 0.0;
   double waveGap = 10.0;
 
   AnimationController controller;
@@ -24,9 +23,7 @@ class _MultipleWavesViewState extends State<MultipleWavesView>
 
     animation = Tween(begin: 0.0, end: waveGap).animate(controller)
       ..addListener(() {
-        setState(() {
-          waveRadius = animation.value;
-        });
+        setState(() {});
       });
 
     controller.addStatusListener((status) {
@@ -49,7 +46,7 @@ class _MultipleWavesViewState extends State<MultipleWavesView>
     final size = MediaQuery.of(context).size;
     return Scaffold(
       body: CustomPaint(
-        painter: WavesPainter(waveRadius, waveGap),
+        painter: WavesPainter(animation, waveGap),
         child: Container(
           width: size.width,
           height: size.height,
@@ -60,10 +57,10 @@ class _MultipleWavesViewState extends State<MultipleWavesView>
 }
 
 class WavesPainter extends CustomPainter {
-  final double radius;
+  final Animation<double> animation;
   final double gap;
 
-  WavesPainter(this.radius, this.gap);
+  WavesPainter(this.animation, this.gap) : super(repaint: animation);
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -91,7 +88,7 @@ class WavesPainter extends CustomPainter {
       ..style = PaintingStyle.stroke
       ..strokeCap = StrokeCap.round;
 
-    double currentRadius = radius;
+    double currentRadius = animation.value;
     Offset topCenter = Offset(size.width / 2, 0);
     Offset bottomCenter = Offset(size.width / 2, size.height);
     Offset leftCenter = Offset(0, size.height / 2);
