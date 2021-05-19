@@ -8,7 +8,6 @@ class WavesView extends StatefulWidget {
 
 class _WavesViewState extends State<WavesView>
     with SingleTickerProviderStateMixin {
-  double waveRadius = 0.0;
   double waveGap = 10.0;
 
   AnimationController controller;
@@ -24,9 +23,7 @@ class _WavesViewState extends State<WavesView>
 
     animation = Tween(begin: 0.0, end: waveGap).animate(controller)
       ..addListener(() {
-        setState(() {
-          waveRadius = animation.value;
-        });
+        setState(() {});
       });
 
     controller.addStatusListener((status) {
@@ -49,7 +46,7 @@ class _WavesViewState extends State<WavesView>
     final size = MediaQuery.of(context).size;
     return Scaffold(
       body: CustomPaint(
-        painter: WavesPainter(waveRadius, waveGap),
+        painter: WavesPainter(animation, waveGap),
         child: Container(
           color: Colors.lightBlue.withOpacity(0.5),
           width: size.width,
@@ -61,10 +58,10 @@ class _WavesViewState extends State<WavesView>
 }
 
 class WavesPainter extends CustomPainter {
-  final double radius;
+  final Animation<double> animation;
   final double gap;
 
-  WavesPainter(this.radius, this.gap);
+  WavesPainter(this.animation, this.gap);
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -74,7 +71,7 @@ class WavesPainter extends CustomPainter {
       ..style = PaintingStyle.stroke
       ..strokeCap = StrokeCap.round;
 
-    double currentRadius = radius;
+    double currentRadius = animation.value;
     Offset center = Offset(size.width / 2, size.height / 2);
     final maxRad = maxRadius(size.width / 2, size.height / 2);
 
