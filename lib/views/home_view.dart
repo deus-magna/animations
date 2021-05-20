@@ -32,6 +32,12 @@ class HomeView extends StatelessWidget {
             title: Text('Circles'),
             trailing: Icon(Icons.arrow_forward_ios_rounded),
             onTap: () => Navigator.of(context).pushNamed('/circles'),
+          ),
+          ListTile(
+            leading: Icon(Icons.waves),
+            title: Text('Sin Wave'),
+            trailing: Icon(Icons.arrow_forward_ios_rounded),
+            onTap: () => Navigator.of(context).pushNamed('/sin'),
           )
         ],
       ),
