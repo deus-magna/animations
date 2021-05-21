@@ -3,19 +3,25 @@ import 'dart:ui';
 extension ExtendedCanvas on Canvas {
   void drawBlurredCircle(
     Offset offset,
-    double radius,
+    double externalRadius,
+    double innerRadius,
     Paint paint, {
-    int step = 1,
-    int opacity = 5,
+    double step = 1,
+    int innerAlpha = 40,
+    int externalAlpha = 1,
   }) {
-    int alpha = 0;
-    double currentRadius = radius;
+    double currentRadius = externalRadius;
+
     while (currentRadius > 0) {
-      print('Alpha: $alpha , currentRadius: $currentRadius');
-      alpha = alpha < 255 ? alpha += opacity : 255;
       currentRadius -= step;
-      paint.color = paint.color.withAlpha(alpha);
-      this.drawCircle(offset, currentRadius, paint);
+
+      if (currentRadius < ((innerRadius * 2) + externalRadius) / 3) {
+        paint.color = paint.color.withAlpha(innerAlpha);
+        this.drawCircle(offset, currentRadius, paint);
+      } else {
+        paint.color = paint.color.withAlpha(externalAlpha);
+        this.drawCircle(offset, currentRadius, paint);
+      }
     }
   }
 }

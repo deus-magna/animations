@@ -41,12 +41,19 @@ class SinWavePainter extends CustomPainter {
     canvas.drawLine(Offset(0, size.height / 2 + 100),
         Offset(size.width, size.height / 2 + 100), paint);
 
-    paint.color = Colors.black.withOpacity(0.5);
-    // canvas.drawCircle(Offset(size.width / 2, size.height / 2), 100, paint);
-    paint.color = Colors.orange;
+    paint.color = Colors.blue.withOpacity(0.8);
+    canvas.drawCircle(Offset(size.width - 150, size.height - 80), 100, paint);
+    canvas.drawCircle(Offset(size.width - 250, size.height - 80), 100, paint);
+    paint.color = Colors.blue;
     canvas.drawBlurredCircle(
-        Offset(size.width / 2, size.height / 2), 180, paint,
-        step: 2, opacity: 1);
+      Offset(size.width / 2, size.height / 2),
+      100,
+      5,
+      paint,
+      step: 1,
+      innerAlpha: 20,
+      externalAlpha: 10,
+    );
   }
 
   @override
