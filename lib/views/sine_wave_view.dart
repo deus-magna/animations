@@ -99,6 +99,11 @@ class SinWavePainter extends CustomPainter {
     canvas.drawCircle(Offset(size.width / 2, size.height / 2), 100, paint);
     canvas.drawCircle(pointCenter, 5, solidPaint);
 
+    // Draw the center
+    solidPaint.color = Colors.orange;
+    canvas.drawCircle(center, 5, solidPaint);
+    canvas.drawLine(center, pointCenter, solidPaint);
+
     // paint.color = Colors.blue.withOpacity(0.8);
     // canvas.drawCircle(Offset(size.width - 150, size.height - 80), 100, paint);
     // canvas.drawCircle(Offset(size.width - 250, size.height - 80), 100, paint);
