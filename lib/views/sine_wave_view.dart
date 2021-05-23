@@ -20,7 +20,7 @@ class _SinWaveViewState extends State<SinWaveView>
 
     controller.forward();
 
-    animation = Tween(begin: -math.pi, end: math.pi).animate(controller);
+    animation = Tween(begin: 0.0, end: math.pi * 2).animate(controller);
 
     controller.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
@@ -63,7 +63,7 @@ class SinWavePainter extends CustomPainter {
     // Circles have a circumference of 2pi
     final radians = animation.value;
     // Our circle radius
-    final radius = 100;
+    final double radius = 100;
     // The start point
     Offset startPoint =
         Offset(radius * math.cos(radians), radius * math.sin(radians));
@@ -103,6 +103,19 @@ class SinWavePainter extends CustomPainter {
     solidPaint.color = Colors.orange;
     canvas.drawCircle(center, 5, solidPaint);
     canvas.drawLine(center, pointCenter, solidPaint);
+
+    // Draw the center circle arc
+    canvas.drawArc(
+      Rect.fromCenter(
+        center: center,
+        height: radius,
+        width: radius,
+      ),
+      0,
+      radians,
+      false,
+      solidPaint,
+    );
 
     // paint.color = Colors.blue.withOpacity(0.8);
     // canvas.drawCircle(Offset(size.width - 150, size.height - 80), 100, paint);
