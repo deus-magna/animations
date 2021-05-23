@@ -105,6 +105,8 @@ class SinWavePainter extends CustomPainter {
     canvas.drawLine(center, pointCenter, solidPaint);
 
     // Draw the center circle arc
+    paint.color = Colors.orange;
+    solidPaint.color = Colors.orange.withOpacity(0.2);
     canvas.drawArc(
       Rect.fromCenter(
         center: center,
@@ -114,6 +116,17 @@ class SinWavePainter extends CustomPainter {
       0,
       radians,
       false,
+      paint,
+    );
+    canvas.drawArc(
+      Rect.fromCenter(
+        center: center,
+        height: radius,
+        width: radius,
+      ),
+      0,
+      radians,
+      true,
       solidPaint,
     );
 
