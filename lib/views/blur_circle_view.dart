@@ -15,20 +15,20 @@ class _BlurCircleViewState extends State<BlurCircleView>
   @override
   void initState() {
     super.initState();
-    controller =
-        AnimationController(duration: Duration(seconds: 5), vsync: this);
+    // controller =
+    //     AnimationController(duration: Duration(seconds: 5), vsync: this);
 
-    controller.forward();
+    // controller.forward();
 
-    animation = Tween(begin: 0.0, end: math.pi * 2).animate(controller);
+    // animation = Tween(begin: 0.0, end: math.pi * 2).animate(controller);
 
-    controller.addStatusListener((status) {
-      if (status == AnimationStatus.completed) {
-        controller.reset();
-      } else if (status == AnimationStatus.dismissed) {
-        controller.forward();
-      }
-    });
+    // controller.addStatusListener((status) {
+    //   if (status == AnimationStatus.completed) {
+    //     controller.reset();
+    //   } else if (status == AnimationStatus.dismissed) {
+    //     controller.forward();
+    //   }
+    // });
   }
 
   @override
@@ -61,22 +61,16 @@ class BlurPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color = Colors.grey[200]
-      ..strokeWidth = 2
-      ..style = PaintingStyle.stroke
-      ..strokeCap = StrokeCap.round;
+      ..color = Colors.blue
+      ..style = PaintingStyle.fill;
 
-    paint.color = Colors.blue.withOpacity(0.8);
-    canvas.drawCircle(Offset(size.width - 150, size.height - 80), 100, paint);
-    canvas.drawCircle(Offset(size.width - 250, size.height - 80), 100, paint);
-    paint.color = Colors.blue;
     canvas.drawBlurredCircle(
       Offset(size.width / 2, size.height / 2),
       100,
-      5,
+      10,
       paint,
-      step: 1,
-      innerAlpha: 0,
+      step: 2,
+      innerAlpha: 20,
       externalAlpha: 10,
     );
   }
