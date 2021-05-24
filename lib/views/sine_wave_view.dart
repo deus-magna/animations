@@ -84,14 +84,28 @@ class SinWavePainter extends CustomPainter {
       ..style = PaintingStyle.fill
       ..strokeCap = StrokeCap.round;
 
+    // Drawing background grid
+    // Horizontal top line
     canvas.drawLine(Offset(0, size.height / 2 - 100),
         Offset(size.width, size.height / 2 - 100), paint);
+    // Vertial top line
+    canvas.drawLine(Offset(size.width / 2 - 100, 0),
+        Offset(size.width / 2 - 100, size.height), paint);
 
+    // Vertical center line
+    canvas.drawLine(
+        Offset(size.width / 2, 0), Offset(size.width / 2, size.height), paint);
+    // Horizontal center line
     canvas.drawLine(
         Offset(0, size.height / 2), Offset(size.width, size.height / 2), paint);
 
+    // Horizontal bottom line
     canvas.drawLine(Offset(0, size.height / 2 + 100),
         Offset(size.width, size.height / 2 + 100), paint);
+
+    // Vertial top line
+    canvas.drawLine(Offset(size.width / 2 + 100, 0),
+        Offset(size.width / 2 + 100, size.height), paint);
 
     // Draw the circle
     paint.color = Colors.green;
@@ -131,8 +145,8 @@ class SinWavePainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(SinWavePainter oldDelegate) => false;
+  bool shouldRepaint(SinWavePainter oldDelegate) => true;
 
   @override
-  bool shouldRebuildSemantics(SinWavePainter oldDelegate) => false;
+  bool shouldRebuildSemantics(SinWavePainter oldDelegate) => true;
 }
