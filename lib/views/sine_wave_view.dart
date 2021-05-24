@@ -164,12 +164,12 @@ class SinWavePainter extends CustomPainter {
     );
 
     // Sin point equation
-    double sinDy = ((200 * radians) / (2 * math.pi)) - 100;
-    print('sinDY: $sinDy, radians: $radians');
+    double yValue = radius * math.sin(radians);
+    final sinPoint = Offset(20, (size.height / 2) + yValue);
     // Draw the sin point
-    canvas.drawCircle(Offset(20, (size.height / 2) + sinDy), 5, sinPaint);
+    canvas.drawCircle(sinPoint, 5, sinPaint);
     // Draw the line for sin point
-    canvas.drawLine(Offset(20, size.height / 2), pointCenter, paint);
+    canvas.drawLine(sinPoint, pointCenter, paint);
   }
 
   @override
