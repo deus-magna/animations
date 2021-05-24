@@ -57,6 +57,41 @@ class SinWavePainter extends CustomPainter {
 
   SinWavePainter(this.animation) : super(repaint: animation);
 
+  void drawGrid(Canvas canvas, Size size, Offset center, double radius) {
+    final paint = Paint()
+      ..color = Colors.grey[200]
+      ..strokeWidth = 2
+      ..style = PaintingStyle.stroke
+      ..strokeCap = StrokeCap.round;
+
+    // Horizontal top line
+    canvas.drawLine(Offset(0, center.dy - radius),
+        Offset(size.width, center.dy - radius), paint);
+    // Vertial top line
+    canvas.drawLine(Offset(center.dx - radius, 0),
+        Offset(center.dx - radius, size.height), paint);
+
+    // Vertical center line
+    canvas.drawLine(
+        Offset(center.dx, 0), Offset(center.dx, size.height), paint);
+    // Horizontal center line
+    canvas.drawLine(Offset(0, center.dy), Offset(size.width, center.dy), paint);
+
+    // Horizontal bottom line
+    canvas.drawLine(Offset(0, center.dy + radius),
+        Offset(size.width, center.dy + radius), paint);
+
+    // Vertial top line
+    canvas.drawLine(Offset(center.dx + radius, 0),
+        Offset(center.dx + radius, size.height), paint);
+
+    // Vertial double line
+    paint
+      ..strokeWidth = 4
+      ..color = Colors.grey;
+    canvas.drawLine(Offset(20, 0), Offset(20, size.height), paint);
+  }
+
   @override
   void paint(Canvas canvas, Size size) {
     // Circles have a circumference of 2pi
@@ -72,6 +107,8 @@ class SinWavePainter extends CustomPainter {
     Offset pointCenter =
         Offset(startPoint.dx + center.dx, startPoint.dy + center.dy);
 
+    drawGrid(canvas, size, center, radius);
+
     final paint = Paint()
       ..color = Colors.grey[200]
       ..strokeWidth = 2
@@ -84,31 +121,14 @@ class SinWavePainter extends CustomPainter {
       ..style = PaintingStyle.fill
       ..strokeCap = StrokeCap.round;
 
-    // Drawing background grid
-    // Horizontal top line
-    canvas.drawLine(Offset(0, size.height / 2 - 100),
-        Offset(size.width, size.height / 2 - 100), paint);
-    // Vertial top line
-    canvas.drawLine(Offset(size.width / 2 - 100, 0),
-        Offset(size.width / 2 - 100, size.height), paint);
-
-    // Vertical center line
-    canvas.drawLine(
-        Offset(size.width / 2, 0), Offset(size.width / 2, size.height), paint);
-    // Horizontal center line
-    canvas.drawLine(
-        Offset(0, size.height / 2), Offset(size.width, size.height / 2), paint);
-
-    // Horizontal bottom line
-    canvas.drawLine(Offset(0, size.height / 2 + 100),
-        Offset(size.width, size.height / 2 + 100), paint);
-
-    // Vertial top line
-    canvas.drawLine(Offset(size.width / 2 + 100, 0),
-        Offset(size.width / 2 + 100, size.height), paint);
+    final sinPaint = Paint()
+      ..color = Colors.red
+      ..style = PaintingStyle.fill;
 
     // Draw the circle
-    paint.color = Colors.green;
+    paint
+      ..color = Colors.green
+      ..strokeWidth = 2;
     canvas.drawCircle(Offset(size.width / 2, size.height / 2), 100, paint);
     canvas.drawCircle(pointCenter, 5, solidPaint);
 
@@ -142,6 +162,14 @@ class SinWavePainter extends CustomPainter {
       true,
       solidPaint,
     );
+
+    // Sin point equation
+    double sinDy = ((200 * radians) / (2 * math.pi)) - 100;
+    print('sinDY: $sinDy, radians: $radians');
+    // Draw the sin point
+    canvas.drawCircle(Offset(20, (size.height / 2) + sinDy), 5, sinPaint);
+    // Draw the line for sin point
+    canvas.drawLine(Offset(20, size.height / 2), pointCenter, paint);
   }
 
   @override
