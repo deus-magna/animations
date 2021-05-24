@@ -1,4 +1,5 @@
 import 'package:animations/views/animated_triangle_view.dart';
+import 'package:animations/views/blur_circle_view.dart';
 import 'package:animations/views/circles_view.dart';
 import 'package:animations/views/home_view.dart';
 import 'package:animations/views/multiple_waves_view.dart';
@@ -15,6 +16,7 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
     '/multi_waves': (BuildContext context) => MultipleWavesView(),
     '/sin': (BuildContext context) => SinWaveView(),
     '/pokeball': (BuildContext context) => PokeballView(),
+    '/blur': (BuildContext context) => BlurCircleView(),
     '/home': (BuildContext context) => HomeView(),
   };
 }

@@ -45,6 +45,12 @@ class HomeView extends StatelessWidget {
             title: Text('Pokeball'),
             trailing: arrow,
             onTap: () => Navigator.of(context).pushNamed('/pokeball'),
+          ),
+          ListTile(
+            leading: Icon(Icons.circle),
+            title: Text('Blurred Circle'),
+            trailing: arrow,
+            onTap: () => Navigator.of(context).pushNamed('/blur'),
           )
         ],
       ),
