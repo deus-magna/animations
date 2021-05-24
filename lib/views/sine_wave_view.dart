@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../canvas/extended_canvas.dart';
 import 'dart:math' as math;
 
 class SinWaveView extends StatefulWidget {
@@ -129,20 +128,6 @@ class SinWavePainter extends CustomPainter {
       true,
       solidPaint,
     );
-
-    // paint.color = Colors.blue.withOpacity(0.8);
-    // canvas.drawCircle(Offset(size.width - 150, size.height - 80), 100, paint);
-    // canvas.drawCircle(Offset(size.width - 250, size.height - 80), 100, paint);
-    // paint.color = Colors.blue;
-    // canvas.drawBlurredCircle(
-    //   Offset(size.width / 2, size.height / 2),
-    //   100,
-    //   5,
-    //   paint,
-    //   step: 1,
-    //   innerAlpha: 0,
-    //   externalAlpha: 10,
-    // );
   }
 
   @override
