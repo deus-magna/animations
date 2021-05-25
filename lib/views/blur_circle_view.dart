@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'dart:math' as math;
 import '../canvas/extended_canvas.dart';
 
-class BlurCircleView extends StatefulWidget {
+class BlurredCircleView extends StatefulWidget {
   @override
-  _BlurCircleViewState createState() => _BlurCircleViewState();
+  _BlurredCircleViewState createState() => _BlurredCircleViewState();
 }
 
-class _BlurCircleViewState extends State<BlurCircleView>
+class _BlurredCircleViewState extends State<BlurredCircleView>
     with TickerProviderStateMixin {
   AnimationController controller;
   Animation<double> animation;
