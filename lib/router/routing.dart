@@ -16,7 +16,7 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
     '/multi_waves': (BuildContext context) => MultipleWavesView(),
     '/sin': (BuildContext context) => SinWaveView(),
     '/pokeball': (BuildContext context) => PokeballView(),
-    '/blur': (BuildContext context) => BlurCircleView(),
+    '/blur': (BuildContext context) => BlurredCircleView(),
     '/home': (BuildContext context) => HomeView(),
   };
 }
