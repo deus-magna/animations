@@ -6,7 +6,7 @@
 
 ## Introduction 
 
-A new Flutter project implementing a buy tickets concept from Dribbble, design credits to Aldo Mora. This UI is for Android an iOS. I developed this application just for learning purpose, You can see current movies, buy tickets, select seats and view a lot of animations.
+This is a practice repository, I'm learning about animations and custom painters on it, I will be continuously adding more animations, as long as I have time and want to practice something new
 
 ## Screens
 
